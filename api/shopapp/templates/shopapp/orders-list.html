@@ -11,10 +11,10 @@
   <h3>No orders yet</h3>
 {% else %}
   <ul>
-    {% for order in order %}
+    {% for order in orders %}
      <li>
        <div>
-         <p>Ordered by:{% firstof order.user.first_name order.user.username }</p>
+         <p>Ordered by:{% firstof order.user.first_name order.user.username %}</p>
          <p>Promocode:{{ order.promocode }}</p>
          <p>Address:{{ order.delivery_address }}</p>
          <div>
@@ -29,7 +29,6 @@
      </li>
     {% endfor %}
   </ul>
-
 {% endif %}
 </div>
 {% endblock %}

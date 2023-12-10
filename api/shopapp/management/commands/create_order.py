@@ -6,7 +6,7 @@ from ...models import Order
 class Command(BaseCommand):
     def handle(self, *args, **options):
         self.stdout.write('Create order')
-        user = User.objects.get(username='john')
+        user = User.objects.get_or_create(username='john')
         order = Order.objects.get_or_create(
             delivery_address='Some adress',
             promocode='somesale',
