@@ -2,6 +2,7 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
+from .forms import UserBioForm, UploadFileForm
 
 
 def process_get_view(request: HttpRequest) -> HttpResponse:
@@ -17,22 +18,34 @@ def process_get_view(request: HttpRequest) -> HttpResponse:
 
 
 def user_form(request: HttpRequest) -> HttpResponse:
+    context = {
+        "form": UserBioForm(),
+    }
 
-    return render(request,"requests/user-bio-form.html")
+    return render(request, "requests/user-bio-form.html", context=context)
 
 
 def handle_file_upload(request: HttpRequest) -> HttpResponse:
-    if request.method == "POST" and request.FILES.get("myfile"):
-        myfile = request.FILES["myfile"]
-        fs = FileSystemStorage()
-        filename = fs.save(myfile.name, myfile)
-        file_size = fs.size(filename)
-
-        if file_size > 1048576:
-            fs.delete(filename)
-            print("File deleted", filename)
-            return render(request, "requests/file-too-big-error.html")
-        else:
+    if request.method == "POST":
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            myfile = form.cleaned_data["file"]
+            fs = FileSystemStorage()
+            filename = fs.save(myfile.name, myfile)
             print('saved file', filename)
+            # file_size = fs.size(filename)
 
-    return render(request, "requests/file-upload.html")
+            # if file_size > 1048576:
+            #     fs.delete(filename)
+            #     print("File deleted", filename)
+            #     return render(request, "requests/file-too-big-error.html")
+            # else:
+            #     print('saved file', filename)
+    else:
+        form = UploadFileForm()
+
+    context = {
+        "form": form
+    }
+
+    return render(request, "requests/file-upload.html", context=context)

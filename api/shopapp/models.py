@@ -26,7 +26,6 @@ class Product(models.Model):
         return f"Product (pk={self.pk}, name={self.name!r})"
 
 
-
 class Order(models.Model):
     delivery_address = models.TextField(null=False, blank=True)
     promocode = models.CharField(max_length=20, null=False, blank=True)

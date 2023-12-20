@@ -30,15 +30,15 @@ class CountRequestsMiddleware:
         self.request_time = {}
 
     def __call__(self, request: HttpRequest):
-        time_wait = 5
+        time_wait = 0.0001
 
-        if not self.request_time:
-            print('это первый запрос')
-        else:
-            if (round(time.time()) * 1) - self.request_time['time'] < time_wait and \
-                    self.request_time['ip_address'] == request.META.get('REMOTE_ADDR'):
-                print("Подождите более 5 секунд чтобы выполнить повторный запрос")
-                return render(request, 'requests/throttling-error.html')
+        # if not self.request_time:
+        #     print('это первый запрос')
+        # else:
+        #     if (round(time.time()) * 1) - self.request_time['time'] < time_wait and \
+        #             self.request_time['ip_address'] == request.META.get('REMOTE_ADDR'):
+        #         print("Подождите более 5 секунд чтобы выполнить повторный запрос")
+        #         return render(request, 'requests/throttling-error.html')
 
         self.request_time = {'time': round(time.time()) * 1, 'ip_address': request.META.get('REMOTE_ADDR')}
 
