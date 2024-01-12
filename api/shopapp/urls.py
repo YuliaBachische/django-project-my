@@ -1,3 +1,5 @@
+import django
+
 from django.urls import path
 from .views import (ShopIndexView,
                     GroupsListView,
