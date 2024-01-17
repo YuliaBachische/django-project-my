@@ -6,7 +6,7 @@ from timeit import default_timer
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
-
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from .models import Product, Order
 from .forms import GroupForm
 
@@ -54,16 +54,25 @@ class ProductsListView(ListView):
     queryset = Product.objects.filter(archived=False)
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     fields = "name", "price", "description", "discount"
     success_url = reverse_lazy("products_list")
 
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)
 
-class ProductUpdateView(UpdateView):
+
+class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Product
     fields = "name", "price", "description", "discount"
     template_name_suffix = "_update_form"
+
+    def test_func(self):
+        product = self.get_object()
+        user = self.request.user
+        return user.is_superuser or (user.has_perm('shopapp.change_product') and product.created_by == user)
 
     def get_success_url(self):
         return reverse(
@@ -83,13 +92,14 @@ class ProductDeleteView(DeleteView):
         return HttpResponseRedirect(success_url)
 
 
-class OrdersListView(ListView):
+class OrdersListView(LoginRequiredMixin, ListView):
     queryset = (
         Order.objects.select_related("user").prefetch_related("products")
     )
 
 
-class OrdersDetailView(DetailView):
+class OrdersDetailView(PermissionRequiredMixin, DetailView):
+    permission_required = 'shopapp.view_order'
     queryset = (
         Order.objects.select_related("user").prefetch_related("products")
     )
