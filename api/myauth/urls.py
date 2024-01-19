@@ -7,7 +7,8 @@ from .views import (
     set_session_view,
     MyLogoutView,
     AboutMeView,
-    RegisterView
+    RegisterView,
+    FooBarView
 )
 appname = 'myauth'
 
@@ -26,4 +27,5 @@ urlpatterns = [
     path('cookie/set/', set_cookie_view, name='cookie-set'),
     path('session/get/', get_session_view, name='session-get'),
     path('session/set/', set_session_view, name='session-set'),
+    path('foo-bar/', FooBarView.as_view(), name='foo-bar'),
 ]

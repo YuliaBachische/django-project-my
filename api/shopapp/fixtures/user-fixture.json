@@ -1,0 +1,80 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$3BdIlUCxadmzfWlwkb6eaK$SmeQTjClmBmHBBQ9XLuYamDjlNGD5Eo1lHzLlNZkmOk=",
+      "last_login": "2024-01-19T13:03:09.445Z",
+      "is_superuser": true,
+      "username": "joshua",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2024-01-12T17:37:58.948Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$Ux7nxrZhGmTQLwOXpeWSlW$0f+jrfe/6L4EITZI7Y6DvfU09Oj861m5XJidyA3SaVk=",
+      "last_login": "2024-01-17T18:24:39.248Z",
+      "is_superuser": false,
+      "username": "john",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-01-16T09:26:43Z",
+      "groups": [],
+      "user_permissions": [
+        32,
+        25,
+        26
+      ]
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$AGWCUfVnT7LcY2Gxk5QzUD$OoNAiISZ8k3Y1RZ60wfBqXhFIMO7Mo++HYlwgFb0FeI=",
+      "last_login": "2024-01-17T18:26:02.907Z",
+      "is_superuser": false,
+      "username": "sam",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-01-16T09:32:43.185Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$epPz3xcWhvPYNV9LFdZNyJ$iKv7HnE7qDOd/HsSFXQwW8XXjUaTX6K56OmHQeOQqKg=",
+      "last_login": "2024-01-17T17:04:22.903Z",
+      "is_superuser": false,
+      "username": "dan",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-01-17T17:04:22.073Z",
+      "groups": [],
+      "user_permissions": [
+        4
+      ]
+    }
+  }
+]

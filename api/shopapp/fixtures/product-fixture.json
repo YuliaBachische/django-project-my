@@ -1,0 +1,38 @@
+[
+  {
+    "model": "shopapp.product",
+    "pk": 1,
+    "fields": {
+      "name": "Tablet 3",
+      "description": "fewfse",
+      "price": "3545.00",
+      "discount": 2,
+      "created_at": "2024-01-17T18:22:28.104Z",
+      "archived": false
+    }
+  },
+  {
+    "model": "shopapp.product",
+    "pk": 2,
+    "fields": {
+      "name": "PC",
+      "description": "some pc",
+      "price": "1332.56",
+      "discount": 2,
+      "created_at": "2024-01-19T13:03:42.453Z",
+      "archived": false
+    }
+  },
+  {
+    "model": "shopapp.product",
+    "pk": 3,
+    "fields": {
+      "name": "TV",
+      "description": "some tv",
+      "price": "3467.67",
+      "discount": 3,
+      "created_at": "2024-01-19T13:03:59.042Z",
+      "archived": false
+    }
+  }
+]
