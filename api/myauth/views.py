@@ -1,16 +1,20 @@
 from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.models import User
 from django.contrib.auth.views import LogoutView
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse, reverse_lazy
 from django.views import View
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, UpdateView, DetailView, ListView
+
+from .forms import AvatarForm
 from .models import Profile
 
 
-class AboutMeView(TemplateView):
+class AboutMeView(LoginRequiredMixin, TemplateView):
     template_name = 'myauth/about-me.html'
 
 
@@ -61,6 +65,41 @@ class MyLogoutView(LogoutView):
     next_page = reverse_lazy('login')
 
 
+class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    form_class = AvatarForm
+    model = Profile
+    template_name = 'myauth/user_update_form.html'
+    template_name_suffix = "_update_form"
+
+    def test_func(self):
+        user = self.request.user
+        profile = self.get_object()
+        return user.is_superuser or profile.user == user
+
+    def get_success_url(self):
+        print(self.object.pk)
+        print(self.request.user.pk)
+        return reverse(
+            "user-details",
+            kwargs={"pk": self.object.user_id}
+        )
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+
+class UserDetailsView(DetailView):
+    template_name = 'myauth/user-details.html'
+    model = User
+    context_object_name = 'user'
+
+
+class UsersListView(ListView):
+    template_name = 'myauth/users-list.html'
+    model = User
+    context_object_name = 'users'
+
+
 @user_passes_test(lambda u: u.is_superuser)
 def set_cookie_view(request: HttpRequest) -> HttpResponse:
     response = HttpResponse("Cookie set")
@@ -88,3 +127,8 @@ def get_session_view(request: HttpRequest) -> HttpResponse:
 class FooBarView(View):
     def get(self, request: HttpRequest) -> JsonResponse:
         return JsonResponse({"foo": "bar", "spam": "eggs"})
+
+
+
+
+

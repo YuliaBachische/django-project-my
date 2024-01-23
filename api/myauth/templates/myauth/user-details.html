@@ -1,0 +1,29 @@
+{% extends 'myauth/base.html' %}
+
+{% block title %}
+    User "{{ user.username }}"
+{% endblock %}
+
+{% block body %}
+    <h1> User <strong>{{ user.username }}</strong> </h1>
+    <div>
+        <p>Username: {{ user.username }}</p>
+        <p>First name: {{ user.first_name }}</p>
+        <p>Last name: {{ user.last_name }}</p>
+        <p>Email: {{ user.email }}</p>
+        <p>Bio: {{ user.profile.bio }}</p>
+
+        {% if user.profile.avatar %}
+             <p>Avatar: </p>
+             <img src="{{ user.profile.avatar.url }}" alt="{{ user.profile.avatar.name }}">
+        {% endif %}
+
+    </div>
+    <div>
+        {% if request.user.is_superuser or request.user.profile == user.profile %}
+            <a href="{% url 'update_user' pk=user.pk %}">Поменять аватар</a>
+        {% endif %}
+    </div>
+
+
+{% endblock %}

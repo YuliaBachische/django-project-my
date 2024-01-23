@@ -1,20 +1,18 @@
-{% extends 'shopapp/base.html' %}
+{% extends 'myauth/base.html' %}
 
 {% block title %}
-    Update product
+    Update Avatar
 {% endblock %}
 
 {% block body %}
-    <h1>Update product</h1>
+    <h1>Update avatar:</h1>
     <div>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
+            <p>Avatar:</p>
+            <img src="{{ profile.avatar.url }}" alt="{{ profile.avatar.name }}">
             {{ form.as_p }}
             <button type="submit">Update</button>
         </form>
-    </div>
-    <div>
-        <a href="{% url 'products_details' pk=object.pk %}"
-        >Back to product #{{ object.pk }}</a>
     </div>
 {% endblock %}

@@ -15,5 +15,11 @@
         <p>Bio: {{ user.profile.bio }}</p>
     {% else %}
         <h2>User is anonymous</h2>
-    {% endif %} 
+    {% endif %}
+    {% if user.profile.avatar %}
+             <img src="{{ user.profile.avatar.url }}" alt="{{ user.profile.avatar.name }}">
+    {% endif %}
+    <div>
+        <a href="{% url 'update_user' pk=user.pk %}">Поменять аватар</a>
+    </div>
 {% endblock %}
