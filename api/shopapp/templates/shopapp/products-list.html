@@ -1,22 +1,37 @@
 {% extends 'shopapp/base.html' %}
 
+{% load i18n %}
+
 {% block title %}
-  Products List
+  {% translate 'Products List' %}
 {% endblock %}
 
 {% block body %}
-<h1>Products:</h1>
+<h1>{% translate 'Products' %}:</h1>
 <div>
-{% if not products%}
-  <h3>No products yet</h3>
+{% if not products %}
+    {% url 'create_product' as create_product_url %}
+    {% blocktranslate %}
+        <h3>No products yet</h3>
+        <a href="{{ create_product_url }}"
+        >Create a new one</a>
+    {% endblocktranslate %}
 {% else %}
+    <div>
+        {% blocktranslate count product_count=products|length %}
+            There is only one product.
+            {% plural %}
+            There are {{ product_count }} products.
+        {% endblocktranslate %}
+    </div>
   <ul>
     {% for product in products %}
      <li>
        <div>
-         <p><a href="{% url 'products_details' pk=product.pk %}">Name:{{ product.name }}</a></p>
-         <p>Price:{{ product.price }}</p>
-         <p>Discount:{% firstof product.discount 'no discount' %}</p>
+         <p><a href="{% url 'products_details' pk=product.pk %}">{% translate 'Name' context 'product name' %}:{{ product.name }}</a></p>
+         <p>{% translate 'Price' %}:{{ product.price }}</p>
+         {% translate 'no discount' as no_discount %}
+         <p>{% translate 'Discount' %}:{% firstof product.discount no_discount %}</p>
          
          {% if product.preview %}
              <img src="{{ product.preview.url }}" alt="{{ product.preview.name }}">
@@ -26,15 +41,15 @@
      </li>
     {% endfor %}
   </ul>
-
-{% endif %}
 </div>
 {% if perms.shopapp.add_product %}
     <div>
         <a href="{% url 'create_product' %}">
-        >Create a new product</a>
+        >{% translate 'Create a new product' %}</a>
     </div>
 {% endif %}
+{% endif %}
+
 
 {% endblock %}
 

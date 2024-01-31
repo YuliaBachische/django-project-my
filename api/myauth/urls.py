@@ -12,6 +12,7 @@ from .views import (
     UserUpdateView,
     UsersListView,
     UserDetailsView,
+    HelloView,
 )
 appname = 'myauth'
 
@@ -34,4 +35,5 @@ urlpatterns = [
     path('session/get/', get_session_view, name='session-get'),
     path('session/set/', set_session_view, name='session-set'),
     path('foo-bar/', FooBarView.as_view(), name='foo-bar'),
+    path('hello/', HelloView.as_view(), name='hello'),
 ]

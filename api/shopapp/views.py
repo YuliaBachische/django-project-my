@@ -24,6 +24,7 @@ class ShopIndexView(View):
         context = {
             "time_running": default_timer(),
             "products": products,
+            "items": 1,
         }
         return render(request, 'shopapp/shop-index.html', context=context)
 
@@ -67,16 +68,16 @@ class ProductCreateView(CreateView):
     #     return super().form_valid(form)
 
 
-class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     # fields = "name", "price", "description", "discount", "preview"
     template_name_suffix = "_update_form"
     form_class = ProductForm
 
-    def test_func(self):
-        product = self.get_object()
-        user = self.request.user
-        return user.is_superuser or (user.has_perm('shopapp.change_product') and product.created_by == user)
+    # def test_func(self):
+    #     product = self.get_object()
+    #     user = self.request.user
+    #     return user.is_superuser or (user.has_perm('shopapp.change_product') and product.created_by == user)
 
     def get_success_url(self):
         return reverse(
