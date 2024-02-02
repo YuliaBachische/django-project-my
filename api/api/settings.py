@@ -39,9 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'django_filters',
     'shopapp.apps.ShopappConfig',
     'requests.apps.RequestdataappConfig',
-    'myauth.apps.MyauthConfig'
+    'myauth.apps.MyauthConfig',
+    'myapiapp.apps.MyapiappConfig',
 ]
 
 MIDDLEWARE = [
@@ -145,3 +148,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = reverse_lazy("about-me")
 LOGIN_URL = reverse_lazy("login")
+
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
+    "DEFAULT_FILTER_BACKENDS": [
+        "django_filters.rest_framework.DjangoFilterBackend"
+    ]
+}
