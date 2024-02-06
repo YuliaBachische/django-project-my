@@ -1,15 +1,18 @@
-from itertools import product
+"""
+В этом модуле лежат обычные наборы представлений.
+
+Рзные view интернет-магазина: по товарам, заказам и т.д.
+"""
 
 from django.contrib.auth.models import Group
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect, JsonResponse
-from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.shortcuts import render, redirect, reverse
 from timeit import default_timer
 
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
-from rest_framework import viewsets
 
 from .models import Product, Order, ProductImage
 from .forms import GroupForm
@@ -18,9 +21,15 @@ from rest_framework.viewsets import ModelViewSet
 from .serializers import ProductSerializer, OrderSerializer
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
+from drf_spectacular.utils import extend_schema, OpenApiResponse
 
 
+@extend_schema(description="Product views CRUD")
 class ProductViewSet(ModelViewSet):
+    """
+    Набор предсталений для действий над Product
+    Полный CRUD для сущностей товара
+    """
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     filter_backends = [
@@ -41,6 +50,17 @@ class ProductViewSet(ModelViewSet):
         "price",
         "discount",
     ]
+
+    @extend_schema(
+        summary="Get one product by ID",
+        description="Retrieves **product**, returns 404 if not found",
+        responses={
+            200: ProductSerializer,
+            404: OpenApiResponse(description="Empty response, product by id not found"),
+        }
+    )
+    def retrieve(self, *args, **kwargs):
+        return super().retrieve(*args, **kwargs)
 
 
 class OrderViewSet(ModelViewSet):

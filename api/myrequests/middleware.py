@@ -38,12 +38,12 @@ class CountRequestsMiddleware:
         #     if (round(time.time()) * 1) - self.request_time['time'] < time_wait and \
         #             self.request_time['ip_address'] == request.META.get('REMOTE_ADDR'):
         #         print("Подождите более 5 секунд чтобы выполнить повторный запрос")
-        #         return render(request, 'requests/throttling-error.html')
+        #         return render(request, 'myrequests/throttling-error.html')
 
         self.request_time = {'time': round(time.time()) * 1, 'ip_address': request.META.get('REMOTE_ADDR')}
 
         self.requests_count += 1
-        print('requests count: ', self.requests_count)
+        print('myrequests count: ', self.requests_count)
         response = self.get_response(request)
         self.response_count += 1
         print('response count: ', self.response_count)

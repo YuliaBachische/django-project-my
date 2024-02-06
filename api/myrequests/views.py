@@ -14,7 +14,7 @@ def process_get_view(request: HttpRequest) -> HttpResponse:
         "b": b,
         "result": result,
     }
-    return render(request, "requests/request-query-params.html", context=context)
+    return render(request, "myrequests/request-query-params.html", context=context)
 
 
 def user_form(request: HttpRequest) -> HttpResponse:
@@ -22,7 +22,7 @@ def user_form(request: HttpRequest) -> HttpResponse:
         "form": UserBioForm(),
     }
 
-    return render(request, "requests/user-bio-form.html", context=context)
+    return render(request, "myrequests/user-bio-form.html", context=context)
 
 
 def handle_file_upload(request: HttpRequest) -> HttpResponse:
@@ -38,7 +38,7 @@ def handle_file_upload(request: HttpRequest) -> HttpResponse:
             # if file_size > 1048576:
             #     fs.delete(filename)
             #     print("File deleted", filename)
-            #     return render(request, "requests/file-too-big-error.html")
+            #     return render(request, "myrequests/file-too-big-error.html")
             # else:
             #     print('saved file', filename)
     else:
@@ -48,4 +48,4 @@ def handle_file_upload(request: HttpRequest) -> HttpResponse:
         "form": form
     }
 
-    return render(request, "requests/file-upload.html", context=context)
+    return render(request, "myrequests/file-upload.html", context=context)
