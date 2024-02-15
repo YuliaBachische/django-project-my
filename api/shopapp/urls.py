@@ -16,7 +16,8 @@ from .views import (ShopIndexView,
                     ProductsDataExportView,
                     OrdersDataExportView,
                     ProductViewSet,
-                    OrderViewSet)
+                    OrderViewSet,
+                    LatestProductsFeed)
 
 appname = 'shopapp'
 
@@ -29,6 +30,7 @@ urlpatterns = [
     path("api/", include(routers.urls)),
     path("groups/", GroupsListView.as_view(), name='groups_list'),
     path("products/", ProductsListView.as_view(), name='products_list'),
+    path("products/latest/feed/", LatestProductsFeed(), name='products-feed'),
     path("products/export/", ProductsDataExportView.as_view(), name='products-export'),
     path("products/<int:pk>/", ProductDetailsView.as_view(), name='products_details'),
     path("products/<int:pk>/update/", ProductUpdateView.as_view(), name='update_product'),

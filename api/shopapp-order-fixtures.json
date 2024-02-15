@@ -1,0 +1,16 @@
+[
+  {
+      "delivery_address": "some address 7",
+      "user": 2,
+      "products": [
+        3
+      ]
+  },
+  {
+      "delivery_address": "some address 6",
+      "user": 3,
+      "products": [
+        2
+      ]
+  }
+]

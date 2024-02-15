@@ -1,6 +1,7 @@
 from django.contrib.admin.options import InlineModelAdmin
 from django.contrib.auth.models import User
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 
@@ -28,6 +29,9 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     archived = models.BooleanField(default=False)
     preview = models.ImageField(null=True, blank=True, upload_to=product_preview_directory_path)
+
+    def get_absolute_url(self):
+        return reverse("products_details", kwargs={"pk": self.pk})
 
     def __str__(self) -> str:
         return f"Product (pk={self.pk}, name={self.name!r})"

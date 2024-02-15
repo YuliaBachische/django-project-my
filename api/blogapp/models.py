@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Author(models.Model):
@@ -16,10 +17,12 @@ class Tag(models.Model):
 
 class Article(models.Model):
     title = models.CharField(max_length=200)
-    content = models.TextField()
-    pub_date = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    tags = models.ManyToManyField(Tag)
+    content = models.TextField(null=True, blank=True)
+    pub_date = models.DateTimeField(null=True, blank=True)
+    # author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    # category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    # tags = models.ManyToManyField(Tag)
 
+    def get_absolute_url(self):
+        return reverse("article", kwargs={"pk": self.pk})
 

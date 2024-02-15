@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import Group
 from django.forms import ClearableFileInput
 
-from .models import Product
+from .models import Product, Order
 
 
 class GroupForm(forms.ModelForm):
@@ -39,3 +39,11 @@ class ProductForm(forms.ModelForm):
         fields = "name", "price", "description", "discount", "preview"
 
     images = MultipleFileField(widget=MultipleFileInput(attrs={'multiple': True}), required=False)
+
+
+class CSVImportForm(forms.Form):
+    csv_file = forms.FileField()
+
+
+class JSONImportForm(forms.Form):
+    json_file = forms.FileField()
