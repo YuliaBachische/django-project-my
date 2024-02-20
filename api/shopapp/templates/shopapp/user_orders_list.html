@@ -1,0 +1,21 @@
+{% extends 'shopapp/base.html' %}
+{% load cache %}
+
+{% block title %}
+    User orders list
+{% endblock %}
+
+{% block body %}
+  {% if user.orders.exists %}
+    {% cache 600 "user_orders_"|add:user.pk %}
+        <h2>Пользователь {{ user.username }} выполнил следующие заказы:</h2>
+        <ul>
+          {% for order in orders %}
+            <li>{{ order }}</li>
+          {% endfor %}
+    {% endcache %}
+    </ul>
+  {% else %}
+    <h2>У пользователя {{ user.username }} ещё нет заказов.</h2>
+  {% endif %}
+{% endblock %}

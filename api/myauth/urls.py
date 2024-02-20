@@ -14,6 +14,7 @@ from .views import (
     UserDetailsView,
     HelloView,
 )
+
 appname = 'myauth'
 
 urlpatterns = [

@@ -12,6 +12,8 @@ from django.views.generic import TemplateView, CreateView, UpdateView, DetailVie
 from django.utils.translation import gettext_lazy as _, ngettext
 from .forms import AvatarForm
 from .models import Profile
+from random import random
+from django.views.decorators.cache import cache_page
 
 
 class HelloView(View):
@@ -125,9 +127,10 @@ def set_cookie_view(request: HttpRequest) -> HttpResponse:
     return response
 
 
+@cache_page(60 * 2)
 def get_cookie_view(request: HttpRequest) -> HttpResponse:
     value = request.COOKIES.get('fizz', 'default_value')
-    return HttpResponse(f"Cookie value: {value!r}")
+    return HttpResponse(f"Cookie value: {value!r} + {random()}")
 
 
 @permission_required('myauth.view_profile', raise_exception=True)
