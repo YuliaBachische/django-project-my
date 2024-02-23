@@ -11,4 +11,7 @@ RUN pip install -r requirements.txt
 
 COPY api .
 
+CMD ["gunicorn", "api.wsgi:application", "--bind", "0.0.0.0:7900"]
+
+
 
