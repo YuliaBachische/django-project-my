@@ -10,7 +10,7 @@ services:
       - "--bind"
       - "0.0.0.0:8000"
     ports:
-      - "3500:8000"
+      - "3535:8000"
     restart: always
     env_file:
       - .env
