@@ -8,9 +8,9 @@ services:
       - "gunicorn"
       - "api.wsgi:application"
       - "--bind"
-      - "0.0.0.0:7900"
+      - "0.0.0.0:8000"
     ports:
-      - "7777:7900"
+      - "3500:8000"
     restart: always
     env_file:
       - .env
