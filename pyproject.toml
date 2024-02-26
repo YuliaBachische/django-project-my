@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "django-project-my"
+version = "0.1.0"
+description = ""
+authors = ["YuliaBachische <juliabach1@mail.ru>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+django = "^5.0.2"
+django-rest-framework = "^0.1.0"
+djangorestframework = "^3.14.0"
+django-filter = "^23.5"
+django-debug-toolbar = "^4.3.0"
+pillow = "^10.2.0"
+gunicorn = "^21.2.0"
+requests = "^2.31.0"
+pyyaml = "^6.0.1"
+drf-spectacular = "^0.27.1"
+idna = "^3.6"
+flake8 = "^7.0.0"
+flake8-docstrings = "^1.7.0"
+inflection = "^0.5.1"
+jsonschema = "^4.21.1"
+jsonschema-specifications = "^2023.12.1"
+mccabe = "^0.7.0"
+packaging = "^23.2"
+referencing = "^0.33.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
